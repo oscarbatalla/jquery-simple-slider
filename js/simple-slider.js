@@ -81,6 +81,23 @@ var __slice = [].slice,
         _this.domDrag(e.pageX, e.pageY);
         return false;
       });
+      this.dragger.unbind('touchmove').bind('touchmove', function(e) {    	  
+    	  _this.dragging = true;
+          _this.dragger.addClass("dragging");
+          _this.domDrag(e.originalEvent.pageX, e.originalEvent.pageY);
+          return $("body").css({
+            cursor: "pointer"
+          });          
+      });
+      this.dragger.unbind('touchend').bind('touchend', function(e) {
+    	  if (_this.dragging) {
+              _this.dragging = false;
+              _this.dragger.removeClass("dragging");
+              return $("body").css({
+                cursor: "auto"
+              });
+            }
+      });
       $("body").mousemove(function(e) {
         if (_this.dragging) {
           _this.domDrag(e.pageX, e.pageY);
